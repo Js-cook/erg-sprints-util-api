@@ -127,5 +127,7 @@ def generate_outfile(encoded_infile):
     if os.path.exists("./race-entries.csv"):
         os.remove("./race-entries.csv")
 
+    raise Exception(f"{type(encoded_bytes.decode("utf-8"))} - {encoded_bytes.decode("utf-8")}")
+
     return encoded_bytes.decode("utf-8")
 
