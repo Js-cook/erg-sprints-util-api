@@ -11,8 +11,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 @app.route('/', methods=["POST"])
 def home():
     if request.method == "POST":
-        data = json.loads(request.json)
-        raise Exception(type(data["inputFile"]))
+        data = request.get_json()
         encoded_output = generate_outfile(data["inputFile"])
         print(type(encoded_output))
         return json.dumps({"status": "SUC", "data": encoded_output})
