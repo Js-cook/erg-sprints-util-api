@@ -48,7 +48,7 @@ class Rower:
 def generate_outfile(encoded_infile):
     # decode our input file from base64 into a readable format
     encoded = base64.b64decode(encoded_infile)
-    with open("temp.csv", "w") as temp_file:
+    with open("/tmp/temp.csv", "w") as temp_file:
         temp_file.write(encoded.decode("utf-8"))
 
     #  ------------------------------------------------
@@ -63,7 +63,7 @@ def generate_outfile(encoded_infile):
     #  ------------------------------------------------
     # READING INPUT CSV
 
-    with open("temp.csv", "r") as csv_file:
+    with open("/tmp/temp.csv", "r") as csv_file:
         csv_reader = csv.reader(csv_file)
         # disregard column headers
         next(csv_reader)
@@ -100,7 +100,7 @@ def generate_outfile(encoded_infile):
     #  ------------------------------------------------
 
     # WRITING TO OUTPUT
-    with open("race-entries.csv", "w") as file:
+    with open("/tmp/race-entries.csv", "w") as file:
         csv_writer = csv.writer(file, delimiter=",")
         for k, v in event_dict.items():
             bow_num = 1
@@ -114,19 +114,13 @@ def generate_outfile(encoded_infile):
                     bow_num += 1
 
     # convert to base64 string and return
-    with open("race-entries.csv", "r") as file:
+    with open("/tmp/race-entries.csv", "r") as file:
         contents = file.read()
 
     file_bytes = contents.encode("utf-8")
     encoded_bytes = base64.b64encode(file_bytes)
 
-    if os.path.exists("./temp.csv"):
-        os.remove("./temp.csv")
-
-    if os.path.exists("./race-entries.csv"):
-        os.remove("./race-entries.csv")
-
-    raise Exception(f"{type(encoded_bytes.decode("utf-8"))} - {encoded_bytes.decode("utf-8")}")
+    # raise Exception(f"{type(encoded_bytes.decode("utf-8"))} - {encoded_bytes.decode("utf-8")}")
 
     return encoded_bytes.decode("utf-8")
 
