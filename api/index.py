@@ -12,7 +12,9 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 def home():
     if request.method == "POST":
         data = json.loads(request.json)
+        print(type(data["inputFile"]))
         encoded_output = generate_outfile(data["inputFile"])
+        print(type(encoded_output))
         return json.dumps({"status": "SUC", "data": encoded_output})
 
     else:
